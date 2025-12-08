@@ -8,42 +8,40 @@
           <div class="flex-shrink-0">
             <h1 class="text-2xl font-bold">
               <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
-                MyApp
+                Najahak.io Backend Assesment!
               </span>
             </h1>
           </div>
 
           <!-- Desktop Navigation -->
           <div class="hidden md:flex items-center space-x-2">
-            <router-link
-              to="/"
-              class="group relative px-6 py-3 rounded-full font-medium transition-all duration-300"
-              :class="isActive('/') 
-                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg' 
-                : 'text-gray-700 hover:bg-purple-100'"
+            <button
+              @click="currentComponent = 'PairSumSolver'"
+              :class="currentComponent === 'PairSumSolver' ? activeClass : inactiveClass"
             >
               <div class="flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z">
+                  </path>
                 </svg>
                 <span>Pair Sum Solver</span>
               </div>
-            </router-link>
+            </button>
 
-            <router-link
-              to="/quotes"
-              class="group relative px-6 py-3 rounded-full font-medium transition-all duration-300"
-              :class="isActive('/quotes') 
-                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg' 
-                : 'text-gray-700 hover:bg-purple-100'"
+            <button
+              @click="currentComponent = 'QuotesGallery'"
+              :class="currentComponent === 'QuotesGallery' ? activeClass : inactiveClass"
             >
               <div class="flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z">
+                  </path>
                 </svg>
                 <span>Quotes Gallery</span>
               </div>
-            </router-link>
+            </button>
           </div>
 
           <!-- Mobile Menu Button -->
@@ -52,22 +50,10 @@
               @click="mobileMenuOpen = !mobileMenuOpen"
               class="inline-flex items-center justify-center p-2 rounded-full text-gray-700 hover:bg-purple-100 focus:outline-none transition-all duration-300"
             >
-              <svg
-                v-if="!mobileMenuOpen"
-                class="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg v-if="!mobileMenuOpen" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
               </svg>
-              <svg
-                v-else
-                class="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg v-else class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
@@ -86,76 +72,57 @@
       >
         <div v-if="mobileMenuOpen" class="md:hidden bg-white border-t border-gray-200">
           <div class="px-4 pt-4 pb-6 space-y-3">
-            <router-link
-              to="/"
-              @click="mobileMenuOpen = false"
-              class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300"
-              :class="isActive('/') 
-                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg' 
-                : 'text-gray-700 hover:bg-purple-100'"
+            <button
+              @click="currentComponent = 'PairSumSolver'; mobileMenuOpen = false"
+              :class="currentComponent === 'PairSumSolver' ? activeClass : inactiveClass"
+              class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 w-full text-left"
             >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-              </svg>
-              <span>Pair Sum Solver</span>
-            </router-link>
+              Pair Sum Solver
+            </button>
 
-            <router-link
-              to="/quotes"
-              @click="mobileMenuOpen = false"
-              class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300"
-              :class="isActive('/quotes') 
-                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg' 
-                : 'text-gray-700 hover:bg-purple-100'"
+            <button
+              @click="currentComponent = 'QuotesGallery'; mobileMenuOpen = false"
+              :class="currentComponent === 'QuotesGallery' ? activeClass : inactiveClass"
+              class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 w-full text-left"
             >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
-              </svg>
-              <span>Quotes Gallery</span>
-            </router-link>
+              Quotes Gallery
+            </button>
           </div>
         </div>
       </transition>
     </nav>
 
     <!-- Main Content -->
-    <main class="min-h-[calc(100vh-5rem)]">
-      <router-view></router-view>
+    <main class="min-h-[calc(100vh-5rem)] p-8">
+      <component :is="currentComponent"></component>
     </main>
-
-
   </div>
 </template>
 
 <script>
+import PairSumSolver from './components/PairSumSolver.vue';
+import QuotesGallery from './components/QuotesGallery.vue';
+
 export default {
   name: 'App',
+  components: { PairSumSolver, QuotesGallery },
   data() {
     return {
-      mobileMenuOpen: false
+      mobileMenuOpen: false,
+      currentComponent: 'PairSumSolver',
+      activeClass: 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg px-4 py-2 rounded',
+      inactiveClass: 'text-gray-700 hover:bg-purple-100 px-4 py-2 rounded'
     };
-  },
-  methods: {
-    isActive(path) {
-      return this.$route.path === path;
-    }
-  },
-  watch: {
-    $route() {
-      this.mobileMenuOpen = false;
-    }
   }
 };
 </script>
 
-<style scoped>
-/* Custom styles for smooth animations */
-.router-link-active {
-  /* This class is automatically added by Vue Router */
+<style>
+button {
+  transition: all 0.2s;
 }
 
-/* Ensure smooth transitions */
-* {
-  -webkit-tap-highlight-color: transparent;
+body{
+background-color:red;
 }
 </style>
