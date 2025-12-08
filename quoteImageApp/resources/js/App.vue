@@ -1,19 +1,16 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
-    <!-- Navigation -->
     <nav class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20">
-          <!-- Logo/Brand -->
           <div class="flex-shrink-0">
             <h1 class="text-2xl font-bold">
               <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
-                Najahak.io Backend Assesment!
+                Najahak.io Backend Test!
               </span>
             </h1>
           </div>
 
-          <!-- Desktop Navigation -->
           <div class="hidden md:flex items-center space-x-2">
             <button
               @click="currentComponent = 'PairSumSolver'"
@@ -44,7 +41,6 @@
             </button>
           </div>
 
-          <!-- Mobile Menu Button -->
           <div class="md:hidden">
             <button
               @click="mobileMenuOpen = !mobileMenuOpen"
@@ -60,8 +56,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Mobile Menu -->
       <transition
         enter-active-class="transition ease-out duration-200"
         enter-from-class="opacity-0 -translate-y-2"
@@ -92,7 +86,6 @@
       </transition>
     </nav>
 
-    <!-- Main Content -->
     <main class="min-h-[calc(100vh-5rem)] p-8">
       <component :is="currentComponent"></component>
     </main>
@@ -120,9 +113,5 @@ export default {
 <style>
 button {
   transition: all 0.2s;
-}
-
-body{
-background-color:red;
 }
 </style>

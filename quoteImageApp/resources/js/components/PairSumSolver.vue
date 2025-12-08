@@ -1,7 +1,6 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 py-8 px-4">
     <div class="max-w-4xl mx-auto">
-      <!-- Header -->
       <div class="text-center mb-8">
         <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 mb-2">
           Pair Sum Solver - REST API
@@ -32,8 +31,6 @@
               class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition"
             >
           </div>
-
-          <!-- Target Sum Input -->
           <div>
             <label class="block text-sm font-semibold text-gray-700 mb-2">
               Target Sum
@@ -46,7 +43,6 @@
             >
           </div>
 
-          <!-- Array Input -->
           <div>
             <label class="block text-sm font-semibold text-gray-700 mb-2">
               Array Elements (space-separated)
@@ -58,8 +54,6 @@
               class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition resize-none"
             ></textarea>
           </div>
-
-          <!-- Solve Button -->
           <button 
             @click="solvePairSum"
             :disabled="loading"
@@ -79,7 +73,6 @@
         </div>
       </div>
 
-      <!-- Error Message -->
       <transition name="fade">
         <div v-if="error" class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-lg">
           <div class="flex items-center">
@@ -91,7 +84,6 @@
         </div>
       </transition>
 
-      <!-- Results Card -->
       <transition name="slide-up">
         <div v-if="showResults" class="bg-white rounded-2xl shadow-2xl p-8">
           <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
@@ -101,7 +93,6 @@
             API Response
           </h2>
 
-          <!-- Input Summary -->
           <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-6 mb-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
@@ -131,7 +122,6 @@
             </div>
           </div>
 
-          <!-- Pairs Output -->
           <div v-if="resultData.pairs.length > 0">
             <h3 class="text-lg font-semibold text-gray-700 mb-4">Unique Pairs</h3>
             <div class="space-y-3">
@@ -154,7 +144,6 @@
             </div>
           </div>
 
-          <!-- No Pairs Message -->
           <div v-else class="text-center py-8">
             <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -162,7 +151,6 @@
             <p class="text-gray-500 text-lg">No pairs found that sum to the target</p>
           </div>
 
-          <!-- Raw JSON Response -->
           <div class="mt-6">
             <h3 class="text-lg font-semibold text-gray-700 mb-3">Raw JSON Response</h3>
             <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm font-mono">{{ JSON.stringify(resultData, null, 2) }}</pre>
@@ -198,11 +186,9 @@ export default {
   },
   methods: {
     async solvePairSum() {
-      // Reset states
       this.error = null;
       this.showResults = false;
 
-      // Validation
       if (!this.size || this.size <= 0) {
         this.error = 'Please enter a valid array size greater than 0';
         return;
@@ -237,7 +223,6 @@ export default {
         this.resultData = response.data;
         this.showResults = true;
 
-        // Scroll to results
         this.$nextTick(() => {
           const resultsElement = document.querySelector('.bg-white.rounded-2xl.shadow-2xl.p-8');
           if (resultsElement) {

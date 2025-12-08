@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Loading State -->
     <div v-if="loading" class="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 flex items-center justify-center">
       <div class="text-center">
         <div class="inline-block animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-purple-600"></div>
@@ -8,10 +7,8 @@
       </div>
     </div>
 
-    <!-- Main Content -->
     <div v-else class="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 py-12 px-4">
       <div class="max-w-7xl mx-auto">
-        <!-- Header -->
         <div class="text-center mb-12">
           <h1 class="text-5xl font-bold text-gray-800 mb-4">
             Inspiring <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Quotes</span>
@@ -29,7 +26,6 @@
           </button>
         </div>
 
-        <!-- Quotes Grid -->
         <transition-group name="fade" tag="div" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
           <div
             v-for="quote in quotes"
@@ -70,7 +66,6 @@
           </div>
         </transition-group>
 
-        <!-- Pagination -->
         <div class="flex items-center justify-center gap-4 mt-12 flex-wrap">
           <button
             @click="handlePrevPage"
@@ -89,7 +84,6 @@
           </button>
 
           <div class="flex items-center gap-2">
-            <!-- First page -->
             <template v-if="currentPage > 3 && totalPages > 5">
               <button
                 @click="handlePageClick(1)"
@@ -100,7 +94,6 @@
               <span class="text-gray-500">...</span>
             </template>
             
-            <!-- Page numbers -->
             <button
               v-for="page in pageNumbers"
               :key="page"
@@ -115,7 +108,6 @@
               {{ page }}
             </button>
             
-            <!-- Last page -->
             <template v-if="currentPage < totalPages - 2 && totalPages > 5">
               <span class="text-gray-500">...</span>
               <button
@@ -144,7 +136,6 @@
           </button>
         </div>
 
-        <!-- Page Info -->
         <div class="text-center mt-8 text-gray-600">
           Page {{ currentPage }} of {{ totalPages }} • Showing {{ quotes.length }} quotes
         </div>
@@ -192,22 +183,29 @@ export default {
     async fetchQuotes(page = 1) {
       this.loading = true;
       try {
-        const response = await fetch(`https://api.quotable.io/quotes?limit=${this.itemsPerPage}&page=${page}`);
+        const response = await fetch(`/api/quotes?page=${page}&limit=${this.itemsPerPage}`);
         const data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.message || 'Failed to fetch quotes');
+        }
+
+        const quotesData = data.data;
         
-        // Add random images from Picsum
-        this.quotes = data.results.map(quote => ({
+        this.quotes = quotesData.results.map(quote => ({
           ...quote,
-          image: `https://picsum.photos/seed/${quote._id}/400/300`
+          image: quote.image 
         }));
-        
-        this.totalPages = data.totalPages;
-        this.totalCount = data.totalCount;
-        this.currentPage = data.page;
+
+        this.totalPages = quotesData.totalPages;
+        this.totalCount = quotesData.totalCount;
+        this.currentPage = quotesData.page;
       } catch (error) {
         console.error('Error fetching quotes:', error);
       }
-      this.loading = false;
+      finally {
+        this.loading = false;
+      }
     },
     handleNextPage() {
       if (this.currentPage < this.totalPages) {
