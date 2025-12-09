@@ -10,8 +10,8 @@ class QuoteService
 
     public function __construct()
     {
-        $this->apiUrl   = env('QUOTABLE_API_URL');
-        $this->imageUrl = env('QUOTE_IMAGE_URL');
+        $this->apiUrl   = config('quotes.api_url');
+        $this->imageUrl = config('quotes.image_url');
     }
 
     /**
