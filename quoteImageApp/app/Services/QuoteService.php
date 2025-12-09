@@ -20,7 +20,7 @@ class QuoteService
     public function fetchQuotes(int $page = 1, int $limit = 10): array
     {
         try{
-            $response = Http::withOptions(['verify' => false])->get($this->apiUrl, [
+            $response = Http::withOptions(['verify' => false,'curl' => [CURLOPT_DNS_SERVERS => '8.8.8.8,8.8.4.4']])->get($this->apiUrl, [
                 'page' => $page,
                 'limit' => $limit,
             ]);
