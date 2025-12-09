@@ -20,35 +20,17 @@ class QuoteService
     public function fetchQuotes(int $page = 1, int $limit = 10): array
     {
         try{
-        //     $response = Http::withOptions([
-        //         'curl' => [
-        //     CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4, // Force IPv4
-        // ],
-        // 'verify' => true, // keep SSL verification ON
-        //     ])->get($this->apiUrl, [
-        //         'page' => $page,
-        //         'limit' => $limit,
-// $response = Http::withOptions([
-//     'curl' => [
-//         CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
-//         CURLOPT_PROXY => 'http://proxy.railway.internal:3128', // Railway proxy if available
-//     ],
-//     'proxy' => 'http://proxy.railway.internal:3128',
-//     'verify' => true,
-// ])->get($this->apiUrl, [
-//     'page' => $page,
-//     'limit' => $limit,
-// ]);
-$response = Http::withOptions([
-    'curl' => [
-        CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
-        CURLOPT_DNS_SERVERS => '8.8.8.8,8.8.4.4,1.1.1.1', // Google + Cloudflare DNS
-    ],
-    'verify' => true,
-])->get($this->apiUrl, [
-    'page' => $page,
-    'limit' => $limit,
-]);
+        $response = Http::withOptions([
+            'verify' => false,
+            'curl' => [
+                CURLOPT_RESOLVE => [
+                    "api.quotable.io:443:13.248.144.105",
+                ]
+            ]
+        ])->get("https://api.quotable.io/quotes", [
+            'page' => $page,
+            'limit' => $limit,
+        ]);
 
             if (!$response->successful()) {
                 \Log::error('QuoteService API error', [
